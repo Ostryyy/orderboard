@@ -86,14 +86,14 @@ public sealed class OrdersController(IOrderRepository repo, IHubContext<OrdersHu
     }
 
     private static OrderResponse Map(Order order) =>
-    new(
-        order.Id,
-        order.CustomerName,
-        order.BoardId,
-        order.Status,
-        order.CreatedAt,
-        [.. order.Items.Select(i => new OrderItemDto(i.Name, i.Quantity))]
-    );
+        new(
+            order.Id,
+            order.CustomerName,
+            order.BoardId,
+            order.Status,
+            order.CreatedAt,
+            order.Items.Select(i => new OrderItemDto(i.Name, i.Quantity)).ToList()
+        );
     
     private static string GroupName(string boardId)
         => $"board:{boardId.Trim().ToLowerInvariant()}";
