@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using OrderBoard.Api.Hubs;
 using OrderBoard.Api.Middleware;
 using OrderBoard.Infrastructure;
 
@@ -10,12 +11,14 @@ builder.Services
     {
         o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
-    
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<DomainExceptionMiddleware>();
 builder.Services.AddInfrastructure();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>
 {
@@ -39,6 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+app.MapHub<OrdersHub>("/hubs/orders");
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 app.Run();
