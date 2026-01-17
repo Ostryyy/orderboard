@@ -9,7 +9,6 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
     public void Configure(EntityTypeBuilder<Order> builder)
     {
         builder.ToTable("Orders");
-
         builder.HasKey(o => o.Id);
 
         builder.Property(o => o.CustomerName)
@@ -20,13 +19,14 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(o => o.CreatedAt)
-            .IsRequired();
+        builder.Property(o => o.CreatedAt).IsRequired();
 
         builder.Property(o => o.Status)
             .HasConversion<string>()
             .HasMaxLength(50)
             .IsRequired();
+
+        builder.Ignore(o => o.Items);
 
         builder.OwnsMany<OrderItem>("_items", items =>
         {
@@ -49,4 +49,5 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Navigation("_items")
             .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
+
 }
