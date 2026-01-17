@@ -11,11 +11,16 @@ public sealed class Order
 
     private readonly List<OrderItem> _items = [];
     public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
+    public string BoardId { get; private set; }
 
-    public Order(Guid id, string customerName, IEnumerable<OrderItem> items)
+    public Order(Guid id, string customerName, string boardId, IEnumerable<OrderItem> items)
     {
         if (id == Guid.Empty) throw new DomainException("Order id cannot be empty.");
         if (string.IsNullOrWhiteSpace(customerName)) throw new DomainException("Customer name cannot be empty.");
+
+        if (string.IsNullOrWhiteSpace(boardId))
+            throw new DomainException("BoardId cannot be empty.");
+        BoardId = boardId.Trim();
 
         var itemList = items?.ToList() ?? throw new DomainException("Order items cannot be null.");
         if (itemList.Count == 0) throw new DomainException("Order must contain at least one item.");
