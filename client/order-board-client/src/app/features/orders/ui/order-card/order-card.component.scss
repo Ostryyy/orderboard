@@ -1,0 +1,60 @@
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.id {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #f1f3f5;
+}
+
+.customer {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.items {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 13px;
+}
+
+.items li {
+  margin: 4px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn {
+  border: none;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #222;
+  color: white;
+}
+
+.danger {
+  background: #b00020;
+}

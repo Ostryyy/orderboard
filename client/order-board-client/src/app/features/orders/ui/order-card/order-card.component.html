@@ -1,0 +1,21 @@
+<article class="card">
+  <header class="header">
+    <div class="id">#{{ order.id.slice(0, 8) }}</div>
+    <div class="status">{{ order.status }}</div>
+  </header>
+
+  <div class="customer">{{ order.customerName }}</div>
+
+  <ul class="items">
+    @for (i of order.items; track i.name) {
+      <li><strong>{{ i.quantity }}x</strong> {{ i.name }}</li>
+    }
+  </ul>
+
+  @if (!readonly) {
+    <footer class="actions">
+      <button class="btn" type="button" (click)="next.emit(order)">Next</button>
+      <button class="btn danger" type="button" (click)="cancel.emit(order)">Cancel</button>
+    </footer>
+  }
+</article>

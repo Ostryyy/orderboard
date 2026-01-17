@@ -1,0 +1,85 @@
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="title">OrderBoard</div>
+      <div class="subtitle">Real-time board</div>
+    </div>
+
+    <div class="right">
+      <span class="badge">Board: {{ boardId }}</span>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="info">Loading orders...</div>
+  } @else if (error()) {
+    <div class="error">
+      <strong>Error:</strong> {{ error() }}
+    </div>
+  }
+
+  <main class="board">
+    <section class="column">
+      <h2>New <span class="count">{{ newOrders().length }}</span></h2>
+
+      @if (newOrders().length === 0) {
+        <div class="empty">No new orders</div>
+      } @else {
+        @for (o of newOrders(); track o.id) {
+          <app-order-card
+            [order]="o"
+            (next)="nextStatus($event)"
+            (cancel)="cancel($event)"
+          />
+        }
+      }
+    </section>
+
+    <section class="column">
+      <h2>Preparing <span class="count">{{ preparingOrders().length }}</span></h2>
+
+      @if (preparingOrders().length === 0) {
+        <div class="empty">Nothing in progress</div>
+      } @else {
+        @for (o of preparingOrders(); track o.id) {
+          <app-order-card
+            [order]="o"
+            (next)="nextStatus($event)"
+            (cancel)="cancel($event)"
+          />
+        }
+      }
+    </section>
+
+    <section class="column">
+      <h2>Ready <span class="count">{{ readyOrders().length }}</span></h2>
+
+      @if (readyOrders().length === 0) {
+        <div class="empty">No orders ready</div>
+      } @else {
+        @for (o of readyOrders(); track o.id) {
+          <app-order-card
+            [order]="o"
+            (next)="nextStatus($event)"
+            (cancel)="cancel($event)"
+          />
+        }
+      }
+    </section>
+
+    <section class="column">
+      <h2>Completed <span class="count">{{ completedOrders().length }}</span></h2>
+
+      @if (completedOrders().length === 0) {
+        <div class="empty">No completed orders</div>
+      } @else {
+        @for (o of completedOrders(); track o.id) {
+          <app-order-card
+            [order]="o"
+            [readonly]="true"
+          />
+        }
+      }
+    </section>
+  </main>
+</div>
