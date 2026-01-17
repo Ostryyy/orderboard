@@ -4,15 +4,16 @@ namespace OrderBoard.Core.Domain.Orders;
 
 public sealed class Order
 {
-    public Guid Id { get; }
-    public string CustomerName { get; private set; }
+    public Guid Id { get; private set; }
+    public string CustomerName { get; private set; } = default!;
+    public string BoardId { get; private set; } = default!;
     public OrderStatus Status { get; private set; }
-    public DateTimeOffset CreatedAt { get; }
+    public DateTimeOffset CreatedAt { get; private set; }
 
     private readonly List<OrderItem> _items = [];
     public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
-    public string BoardId { get; private set; }
 
+    private Order() { }
     public Order(Guid id, string customerName, string boardId, IEnumerable<OrderItem> items)
     {
         if (id == Guid.Empty) throw new DomainException("Order id cannot be empty.");

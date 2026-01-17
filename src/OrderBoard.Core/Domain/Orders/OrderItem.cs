@@ -4,8 +4,9 @@ namespace OrderBoard.Core.Domain.Orders;
 
 public sealed class OrderItem
 {
-    public string Name { get; }
-    public int Quantity { get; }
+    public string Name { get; private set; } = default!;
+    public int Quantity { get; private set; }
+    private OrderItem() { }
 
     public OrderItem(string name, int quantity)
     {
