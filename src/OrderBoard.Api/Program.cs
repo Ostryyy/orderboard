@@ -18,7 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<DomainExceptionMiddleware>();
 builder.Services.AddInfrastructure();
 
-builder.Services.AddSignalR();
+builder.Services
+    .AddSignalR()
+    .AddJsonProtocol(options =>
+    {
+        options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 builder.Services.AddCors(options =>
 {
