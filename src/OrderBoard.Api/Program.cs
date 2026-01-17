@@ -1,8 +1,14 @@
+using OrderBoard.Api.Middleware;
+using OrderBoard.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<DomainExceptionMiddleware>();
+builder.Services.AddInfrastructure();
 
 builder.Services.AddCors(options =>
 {
@@ -16,6 +22,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("client");
+
+app.UseMiddleware<DomainExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
