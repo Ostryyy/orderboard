@@ -57,6 +57,7 @@ public class OrderTests
         return new Order(
             Guid.NewGuid(),
             "John",
+            "main",
             [new OrderItem("Burger", 2)]
         );
     }
